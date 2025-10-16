@@ -23,8 +23,16 @@ def process_amonia_data():
         lot_number = match.group(1)
 
         try:
-            column_names = ['Grandeza', 'Coletor', 'Dispositivo', 'ID_longa', 'ID_curta', 'Canal', 'Local', 'Valor', 'Data', 'Hora']
-            df = pd.read_csv(file_path, sep=';', decimal=',', skiprows=1, names=column_names)
+            df = pd.read_csv(file_path, sep=';', decimal=',', skiprows=1)
+
+            # Rename columns to be more database-friendly
+            df = df.rename(columns={
+                'ID longa': 'ID_longa',
+                'ID curta': 'ID_curta'
+            })
+            # Drop the 'Unnamed: 10' column if it exists
+            if 'Unnamed: 10' in df.columns:
+                df = df.drop(columns=['Unnamed: 10'])
 
             # Extract aviary number from 'Coletor' column (e.g., CTRONICS 1282 -> 1282)
             # Assuming 'Coletor' column exists and has the format 'CTRONICS XXXX'
