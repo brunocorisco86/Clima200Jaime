@@ -12,5 +12,6 @@ CREATE TABLE IF NOT EXISTS lote_composto (
     aero_parcial REAL,
     condenacao_efetiva_kg REAL,
     contaminacao_parcial REAL,
-    remuneracao_sqr_meter_brl REAL
+    remuneracao_sqr_meter_brl REAL, 
+    teste_realizado TEXT
 );
