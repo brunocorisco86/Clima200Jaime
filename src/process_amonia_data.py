@@ -28,7 +28,7 @@ def process_amonia_data():
 
             # Extract aviary number from 'Coletor' column (e.g., CTRONICS 1282 -> 1282)
             # Assuming 'Coletor' column exists and has the format 'CTRONICS XXXX'
-            df['Aviario'] = df['Coletor'].apply(lambda x: x.split(' ')[-1] if isinstance(x, str) else None)
+            df['Aviario'] = df['Coletor'].apply(lambda x: re.search(r'\\d+', x).group(0) if isinstance(x, str) and re.search(r'\\d+', x) else None)
             df['lote_composto'] = df['Aviario'].astype(str) + '_' + str(lot_number)
 
             # Combine 'Data' and 'Hora' into a single datetime column
