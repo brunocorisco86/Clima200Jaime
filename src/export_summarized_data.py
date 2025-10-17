@@ -27,6 +27,7 @@ class DataExporter:
     def export_all_summarized_data(self):
         self.export_view_to_csv("daily_iot_summary", "daily_iot_summary.csv")
         self.export_view_to_csv("lote_performance_summary", "lote_performance_summary.csv")
+        self.export_view_to_csv("distinct_grandezas", "distinct_grandezas.csv") # New export
 
 if __name__ == "__main__":
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

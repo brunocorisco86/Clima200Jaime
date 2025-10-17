@@ -35,7 +35,8 @@ class CSVProcessor:
                 print(f"Warning: Could not extract 'Lote' from file path: {file_path}")
 
             if 'Coletor' in df.columns and 'Lote' in df.columns:
-                df['lote_composto'] = df['Coletor'].astype(str) + '_' + df['Lote'].astype(str)
+                # Changed from underscore to hyphen for consistency
+                df['lote_composto'] = df['Coletor'].astype(str) + '-' + df['Lote'].astype(str)
             else:
                 print(f"Warning: Could not create 'lote_composto' in {file_path} due to missing 'Coletor' or 'Lote' column.")
 
