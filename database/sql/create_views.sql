@@ -10,15 +10,15 @@ SELECT
     MIN(eis.Valor) AS min_valor,
     SQRT(AVG(eis.Valor*eis.Valor) - AVG(eis.Valor)*AVG(eis.Valor)) AS std_valor,
     (MAX(eis.Valor) - MIN(eis.Valor)) AS amplitude_valor,
-    -- Calculate idade_lote
     CAST(julianday(SUBSTR(eis.Data, 7, 4) || '-' || SUBSTR(eis.Data, 4, 2) || '-' || SUBSTR(eis.Data, 1, 2)) - 
-         julianday(SUBSTR(lp.data_alojamento, 7, 4) || '-' || SUBSTR(lp.data_alojamento, 4, 2) || '-' || SUBSTR(lp.data_alojamento, 1, 2)) AS INTEGER) AS idade_lote
+         julianday(SUBSTR(lp.data_alojamento, 7, 4) || '-' || SUBSTR(lp.data_alojamento, 4, 2) || '-' || SUBSTR(lp.data_alojamento, 1, 2)) AS INTEGER) AS idade_lote,
+    lp.teste_realizado -- New column
 FROM
     eprodutor_iot_data eis
 JOIN
     lote_composto lp ON eis.lote_composto = lp.lote_composto
 GROUP BY
-    eis.lote_composto, eis.Grandeza, eis.Local, eis.Data, lp.data_alojamento;
+    eis.lote_composto, eis.Grandeza, eis.Local, eis.Data, lp.data_alojamento, lp.teste_realizado; -- Added to GROUP BY
 
 -- View for combined lote performance and average sensor data
 CREATE VIEW IF NOT EXISTS lote_performance_summary AS
