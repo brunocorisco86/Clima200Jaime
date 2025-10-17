@@ -1,11 +1,7 @@
 CREATE TABLE IF NOT EXISTS dados_lotes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
     lote_composto TEXT NOT NULL,
-    aviario INTEGER NOT NULL,
-    lote INTEGER NOT NULL,
     idade INTEGER NOT NULL,
     data TEXT NOT NULL,
-    agua_referencia_l REAL,
     energia_referencia_kwh REAL,
     energia_consumo_automatico_kwh REAL,
     peso_referencia_g REAL,
@@ -16,5 +12,5 @@ CREATE TABLE IF NOT EXISTS dados_lotes (
     mortalidade_un INTEGER,
     mortalidade_percent REAL,
     mortalidade_referencia_percent REAL,
-    UNIQUE(lote_composto, idade)
+    PRIMARY KEY(lote_composto, idade)
 );

@@ -15,54 +15,75 @@ Este repositório foi criado para organizar e processar os dados do teste do equ
 
 ## Estrutura de Pastas
 
-A estrutura de pastas para os dados brutos (`/data/raw`) foi organizada da seguinte forma, considerando que os arquivos de "Sensores" contêm dados de ambos os aviários e são separados por tipo de grandeza e intervalo de 15 dias. A estrutura completa do projeto é:
+A estrutura de pastas foi organizada para separar os dados brutos de acordo com sua origem e tipo.
 
 ```
 /home/brunoconter/Code/Git/Clima200JaimeBasso/
-├── data/
-│   └── raw/
-│       ├── Amonia/
-│       │   ├── 2025-08-19_2025-09-02/
-│       │   ├── 2025-09-03_2025-09-17/
-│       │   └── 2025-09-18_2025-10-02/
-│       ├── Temperatura/
-│       │   ├── 2025-08-19_2025-09-02/
-│       │   ├── 2025-09-03_2025-09-17/
-│       │   └── 2025-09-18_2025-10-02/
-│       ├── Consumo_Silo/
-│       │   ├── 2025-08-19_2025-09-02/
-│       │   ├── 2025-09-03_2025-09-17/
-│       │   └── 2025-09-18_2025-10-02/
-│       ├── Pressao_Diferencial/
-│       │   ├── 2025-08-19_2025-09-02/
-│       │   ├── 2025-09-03_2025-09-17/
-│       │   └── 2025-09-18_2025-10-02/
-│       ├── Umidade_Relativa/
-│       │   ├── 2025-08-19_2025-09-02/
-│       │   ├── 2025-09-03_2025-09-17/
-│       │   └── 2025-09-18_2025-10-02/
-│       ├── Corrente_Eletrica/
-│       │   ├── 2025-08-19_2025-09-02/
-│       │   ├── 2025-09-03_2025-09-17/
-│       │   └── 2025-09-18_2025-10-02/
-│       └── Energia_Eletrica/
-│           ├── 2025-08-19_2025-09-02/
-│           ├── 2025-09-03_2025-09-17/
-│           └── 2025-09-18_2025-10-02/
-├── database/
-│   ├── clima.db
-│   ├── create_dados_lotes_table.sql
-│   ├── create_lote_composto_table.sql
-│   ├── insert_lote_composto_data.sql
-│   └── sql/
-│       ├── create_dados_lotes_table.sql
-│       ├── create_lote_composto_table.sql
-│       └── insert_lote_composto_data.sql
-└── src/
-    ├── create_db.py
-    ├── process_exports.py
-    └── utils/
-        └── logger.py
+├───README.md
+├───.git/...
+├───data/
+│   └───raw/
+│       ├───exportAcompanhamentoLotes/
+│       │   ├───export_consumo_energia_1282_19.csv
+│       │   ├───export_consumo_energia_1283_19.csv
+│       │   ├───export_consumo_racao_1282_19.csv
+│       │   ├───export_consumo_racao_1283_19.csv
+│       │   ├───export_mortalidade_1282_19.csv
+│       │   └───export_mortalidade_1283_19.csv
+│       └───exportEprodutorIOT/
+│           ├───Amonia/
+│           │   └───lote_19/
+│           │       ├───AmoniaSensores_lote_19.csv
+│           │       ├───AmoniaSensores2_lote_19.csv
+│           │       └───AmoniaSensores3_lote_19.csv
+│           ├───Consumo_Silo/
+│           │   └───lote_19/
+│           │       ├───ConsumoSiloSensores_lote_19.csv
+│           │       ├───ConsumoSiloSensores2_lote_19.csv
+│           │       └───ConsumoSiloSensores3_lote_19.csv
+│           ├───Corrente_Eletrica/
+│           │   └───lote_19/
+│           │       ├───CorrenteEletricaSensores_lote_19.csv
+│           │       ├───CorrenteEletricaSensores2_lote_19.csv
+│           │       └───CorrenteEletricaSensores3_lote_19.csv
+│           ├───Energia_Eletrica/
+│           │   └───lote_19/
+│           │       ├───EnergiaEletricaSensores_lote_19.csv
+│           │       ├───EnergiaEletricaSensores2_lote_19.csv
+│           │       └───EnergiaEletricaSensores3_lote_19.csv
+│           ├───Pressao_Diferencial/
+│           │   └───lote_19/
+│           │       ├───PressaoDiferencialSensores_lote_19.csv
+│           │       ├───PressaoDiferencialSensores2_lote_19.csv
+│           │       └───PressaoDiferencialSensores3_lote_19.csv
+│           ├───Temperatura/
+│           │   └───lote_19/
+│           │       ├───TemperaturaSensores_lote_19.csv
+│           │       ├───TemperaturaSensores2_lote_19.csv
+│           │       └───TemperaturaSensores3_lote_19.csv
+│           └───Umidade_Relativa/
+│               └───lote_19/
+│                   ├───UmidadeRelativaSensores_lote_19.csv
+│                   ├───UmidadeRelativaSensores2_lote_19.csv
+│                   └───UmidadeRelativaSensores3_lote_19.csv
+├───database/
+│   ├───clima.db
+│   ├───create_dados_lotes_table.sql
+│   ├───create_lote_composto_table.sql
+│   ├───insert_lote_composto_data.sql
+│   └───sql/
+│       ├───create_amonia_table.sql
+│       ├───create_dados_lotes_table.sql
+│       ├───create_lote_composto_table.sql
+│       └───insert_lote_composto_data.sql
+├───docs/
+│   └───DATAS DATA ALOJAMENTO.txt
+└───src/
+    ├───create_db.py
+    ├───process_amonia_data.py
+    ├───process_exports.py
+    └───utils/
+        └───logger.py
 ```
 
 ## Tipos de Arquivos CSV Identificados
