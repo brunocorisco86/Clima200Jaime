@@ -20,14 +20,20 @@ class AcompanhamentoLotesProcessor:
                 "Referência (%)": "Referencia_percent",
                 "Relação": "Relacao_mortalidade"
             },
-            # Add mappings for other Grandeza types if they appear
-            # For now, assuming ConsumoRacao is empty or has similar structure to ConsumoEnergia
             "ConsumoRacao": {
                 "Referência (kg)": "Referencia_kg", # Assuming kg for Racao
-                "Consumo automático (kg)": "Consumo_automatico_kg",
+                "Ração automática (kg)": "Consumo_automatico_kg",
                 "Relação": "Relacao_auto",
-                "Consumo manual (kg)": "Consumo_manual_kg",
+                "Ração manual (kg)": "Consumo_manual_kg",
                 "Relação.1": "Relacao_manual"
+            },
+            "GMD": {
+                "Referência (g)": "Referencia_gmd", # Assumido pelo GMD
+                "GMD automático (g)": "GMD_automatico_g",
+                "Relação": "Relacao_auto",
+                "GMD manual (g)": "GMD_manual_g",
+                "Relação.1": "Relacao_manual"
+
             }
         }
         # Define all possible columns for the final DataFrame to ensure consistency
@@ -36,7 +42,7 @@ class AcompanhamentoLotesProcessor:
             'Referencia_kwh', 'Consumo_automatico_kwh', 'Relacao_auto',
             'Consumo_manual_kwh', 'Relacao_manual',
             'Mortalidade_un', 'Mortalidade_percent', 'Referencia_percent', 'Relacao_mortalidade',
-            'Referencia_kg', 'Consumo_automatico_kg', 'Consumo_manual_kg' # Added for ConsumoRacao
+            'Referencia_kg', 'Consumo_automatico_kg', 'Consumo_manual_kg', 'GMD_automatico_g', 'GMD_manual_g'
         ]
 
 
