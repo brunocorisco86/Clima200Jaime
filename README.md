@@ -1,113 +1,82 @@
 # Análise de Dados do Teste Clima200 (Jaime Basso)
 
-Este repositório foi criado para organizar e processar os dados do teste do equipamento Clima200 da Vencomatic, realizado na granja de frangos de corte do proprietário Jaime Basso.
+Este repositório contém as análises de dados referentes ao teste de eficiência do sistema de climatização **CLIMA200 da Vencomatic**, comparado a um sistema de controle testemunha. O objetivo é avaliar o impacto do controle de ambiência no desempenho de lotes de frangos de corte.
 
-## Contexto do Teste
+## Metodologia e Premissas do Teste
 
-*   **Aviário Instalado (Clima200):** 1283
-*   **Aviário Testemunha:** 1282
-*   **Plataforma de Extração:** eProdutor (extração de 15 em 15 dias)
-*   **Datas:**
-    *   Pré-Alojamento: 19/08/2025
-    *   Alojamento: 20/08/2025
-    *   Abate: 01/10/2025
-*   **Dados Coletados:** Amônia, Temperatura, Consumo Silo (Máximo), Pressão Diferencial, Umidade Relativa, Corrente Elétrica, Energia Elétrica do Dia (Máximo).
+A análise comparativa foi realizada a partir de dados coletados de dois aviários na granja de Jaime Basso:
 
-## Estrutura de Pastas
+- **Aviário CLIMA200:** Equipado com o sistema CLIMA200 (identificado como `1283`).
+- **Aviário TESTEMUNHA:** Utilizando um sistema de controle convencional (identificado como `1282`).
 
-A estrutura de pastas foi organizada para separar os dados brutos de acordo com sua origem e tipo.
+Os dados foram extraídos da plataforma **eProdutor** e de sensores IoT, abrangendo o período de alojamento de 19/08/2025 a 01/10/2025.
+
+A metodologia consistiu em:
+1.  **Coleta e Preparação:** Consolidação dos dados de desempenho dos lotes, leituras de sensores de ambiência (temperatura, umidade, amônia, CO2) e consumo (ração e energia) em um banco de dados SQLite.
+2.  **Análise Comparativa de KPIs:** Avaliação de indicadores de desempenho (Mortalidade, Conversão Alimentar, IEP, Peso Médio) entre os dois tratamentos.
+3.  **Análise da Ambiência:** Monitoramento da evolução das variáveis de ambiência para avaliar a estabilidade e eficiência do CLIMA200.
+4.  **Acompanhamento Diário:** Análise de métricas diárias para identificar tendências e anomalias no desenvolvimento dos lotes.
+
+A premissa central do teste é que um controle de ambiência mais preciso, proporcionado pelo **CLIMA200**, resulta em melhores condições de bem-estar para as aves, refletindo em indicadores zootécnicos superiores e maior eficiência produtiva.
+
+## Visualizações dos Resultados
+
+As análises geraram visualizações que destacam as principais diferenças entre os tratamentos.
+
+### Comparativo de KPIs
+O gráfico abaixo ilustra a diferença nos principais indicadores de performance entre o sistema CLIMA200 e o Testemunha.
+
+![Comparativo de KPIs](./plots/kpi_comparison.png)
+
+### Evolução da Ambiência
+Este gráfico demonstra a capacidade do CLIMA200 em manter as variáveis de ambiência (como temperatura e umidade) mais estáveis e dentro das faixas ideais.
+
+![Evolução da Ambiência](./plots/ambiencia_evolution.png)
+
+### Acompanhamento Diário
+O monitoramento diário de métricas como mortalidade e consumo de ração revela a consistência do desenvolvimento do lote no ambiente controlado.
+
+![Acompanhamento Diário](./plots/daily_monitoring.png)
+
+## Estrutura do Repositório
 
 ```
 /home/brunoconter/Code/Git/Clima200JaimeBasso/
+├───.gitignore
+├───main.py
 ├───README.md
 ├───.git/...
 ├───data/
+│   ├───processed/
 │   └───raw/
-│       ├───exportAcompanhamentoLotes/
-│       │   ├───export_consumo_energia_1282_19.csv
-│       │   ├───export_consumo_energia_1283_19.csv
-│       │   ├───export_consumo_racao_1282_19.csv
-│       │   ├───export_consumo_racao_1283_19.csv
-│       │   ├───export_mortalidade_1282_19.csv
-│       │   └───export_mortalidade_1283_19.csv
-│       └───exportEprodutorIOT/
-│           ├───Amonia/
-│           │   └───lote_19/
-│           │       ├───AmoniaSensores_lote_19.csv
-│           │       ├───AmoniaSensores2_lote_19.csv
-│           │       └───AmoniaSensores3_lote_19.csv
-│           ├───Consumo_Silo/
-│           │   └───lote_19/
-│           │       ├───ConsumoSiloSensores_lote_19.csv
-│           │       ├───ConsumoSiloSensores2_lote_19.csv
-│           │       └───ConsumoSiloSensores3_lote_19.csv
-│           ├───Corrente_Eletrica/
-│           │   └───lote_19/
-│           │       ├───CorrenteEletricaSensores_lote_19.csv
-│           │       ├───CorrenteEletricaSensores2_lote_19.csv
-│           │       └───CorrenteEletricaSensores3_lote_19.csv
-│           ├───Energia_Eletrica/
-│           │   └───lote_19/
-│           │       ├───EnergiaEletricaSensores_lote_19.csv
-│           │       ├───EnergiaEletricaSensores2_lote_19.csv
-│           │       └───EnergiaEletricaSensores3_lote_19.csv
-│           ├───Pressao_Diferencial/
-│           │   └───lote_19/
-│           │       ├───PressaoDiferencialSensores_lote_19.csv
-│           │       ├───PressaoDiferencialSensores2_lote_19.csv
-│           │       └───PressaoDiferencialSensores3_lote_19.csv
-│           ├───Temperatura/
-│           │   └───lote_19/
-│           │       ├───TemperaturaSensores_lote_19.csv
-│           │       ├───TemperaturaSensores2_lote_19.csv
-│           │       └───TemperaturaSensores3_lote_19.csv
-│           └───Umidade_Relativa/
-│               └───lote_19/
-│                   ├───UmidadeRelativaSensores_lote_19.csv
-│                   ├───UmidadeRelativaSensores2_lote_19.csv
-│                   └───UmidadeRelativaSensores3_lote_19.csv
 ├───database/
-│   ├───clima.db
-│   ├───create_dados_lotes_table.sql
-│   ├───create_lote_composto_table.sql
-│   ├───insert_lote_composto_data.sql
+│   ├───clima_prod.db
 │   └───sql/
-│       ├───create_amonia_table.sql
-│       ├───create_dados_lotes_table.sql
-│       ├───create_lote_composto_table.sql
-│       └───insert_lote_composto_data.sql
 ├───docs/
-│   └───DATAS DATA ALOJAMENTO.txt
+│   ├───DATAS DATA ALOJAMENTO.txt
+│   └───Relatório de Eficiência: CLIMA200 vs. TESTEMUNHA.md
+├───knowledge/
+├───notebooks/
+├───plots/
+│   ├───ambiencia_evolution.png
+│   ├───daily_monitoring.png
+│   └───kpi_comparison.png
 └───src/
     ├───create_db.py
-    ├───process_amonia_data.py
-    ├───process_exports.py
+    ├───...
     └───utils/
-        └───logger.py
 ```
 
-## Tipos de Arquivos CSV Identificados
+## Como Executar a Análise
 
-1.  **Arquivos `Exports_Acompanhamento_Lotes` (ex: `export_consumo_energia_1283.csv`):**
-    *   **Delimitador:** Vírgula (`,`)
-    *   **Estrutura:** Já separados por aviário (indicado no nome do arquivo, ex: `_1283` ou `_1282`).
-    *   **Exemplo de cabeçalho:** `"Idade","Data","Referência (kwh)","Consumo automático (kwh)","Relação","Consumo manual (kwh)","Relação"`
-
-2.  **Arquivos "Sensores" (ex: `Sensores.csv`, `Sensores(1).csv`, `Sensores(2).csv`):**
-    *   **Delimitador:** Ponto e vírgula (`;`)
-    *   **Estrutura:** Contêm dados combinados para ambos os aviários.
-    *   **Exemplo de cabeçalho:** `Grandeza;Coletor;Dispositivo;ID longa;ID curta;Canal;Local;Valor;Data;Hora;`
-
-## Status Atual e Próximos Passos
-
-1.  **Clarificação Urgente:** Como diferenciar os dados do `Aviário 1283` e `Aviário 1282` dentro dos arquivos "Sensores"? O campo `Coletor` mostra `CTRONICS 1284`, que não corresponde diretamente aos números dos aviários. É necessário um mapeamento ou outra coluna para essa distinção.
-
-2.  **Criação e População do Banco de Dados:**
-    *   O script `src/create_db.py` foi criado para inicializar o banco de dados SQLite (`clima.db`) na pasta `/database/` e criar as tabelas necessárias (`dados_lotes` e `lote_composto`).
-    *   Os arquivos SQL em `database/sql/` (`create_dados_lotes_table.sql`, `create_lote_composto_table.sql`, `insert_lote_composto_data.sql`) são utilizados por `create_db.py` para definir a estrutura das tabelas e popular dados iniciais.
-
-3.  **Processamento de Dados de Exportação:**
-    *   O script `src/process_exports.py` foi desenvolvido para ler e processar os arquivos CSV da pasta `Exports_Acompanhamento_Lotes`.
-    *   Este script é responsável por extrair os dados relevantes e inseri-los na tabela `dados_lotes` do banco de dados.
-
-4.  **Configuração de Logging:** O arquivo `src/utils/logger.py` já foi criado para facilitar o registro de eventos e erros durante o processamento dos dados.
+1.  **Configurar o Ambiente:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    ```
+2.  **Executar o Pipeline de Dados:**
+    ```bash
+    python main.py
+    ```
+    O script `main.py` orquestra a criação do banco de dados, processamento dos dados brutos e geração das análises e visualizações.
