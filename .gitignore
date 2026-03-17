@@ -1,1 +1,3 @@
 database/clima.db
+__pycache__/
+*.py[cod]

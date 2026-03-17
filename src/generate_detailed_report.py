@@ -7,6 +7,9 @@ import os
 
 sns.set_style("whitegrid")
 
+# Define project root
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
 # --- Funções Auxiliares para o Relatório ---
 
 def load_knowledge_file(filepath):
@@ -48,7 +51,7 @@ report_content.append("Este relatório apresenta uma análise aprofundada da efi
 report_content.append("### 1. Carregamento e Preparação dos Dados\n")
 report_content.append("Os dados foram carregados de um banco de dados SQLite (`clima_prod.db`) e incluem informações de desempenho do lote, leituras diárias de IoT e acompanhamento dos lotes. As etapas de pré-processamento incluíram padronização de nomes, conversão de tipos e fusão de DataFrames para criar uma base de dados unificada (`df_final`).\n")
 
-engine = create_engine('sqlite:///Clima200Jaime/database/clima_prod.db')
+engine = create_engine(f'sqlite:///{os.path.join(project_root, "database", "clima_prod.db")}')
 df_performance = pd.read_sql('lote_performance_summary', engine)
 df_iot = pd.read_sql('daily_iot_summary', engine)
 df_acompanhamento = pd.read_sql('acompanhamento_lotes_data', engine)
@@ -110,10 +113,11 @@ report_content.append("### 3. Análise da Ambiência\n")
 report_content.append("A ambiência controlada é um pilar do sistema CLIMA200. Analisamos a evolução das variáveis críticas medidas pelos sensores.\n\n")
 
 # Carregar contexto da pasta knowledge
-ambiencia_clima200_context = load_knowledge_file('Clima200Jaime/knowledge/ambiencia_clima200.md')
-amonia_clima200_context = load_knowledge_file('Clima200Jaime/knowledge/amonia_clima200.md')
-importancia_amonia_context = load_knowledge_file('Clima200Jaime/knowledge/importancia_amonia.md')
-sensor_dol53_context = load_knowledge_file('Clima200Jaime/knowledge/sensor_dol53.md')
+knowledge_dir = os.path.join(project_root, 'knowledge')
+ambiencia_clima200_context = load_knowledge_file(os.path.join(knowledge_dir, 'ambiencia_clima200.md'))
+amonia_clima200_context = load_knowledge_file(os.path.join(knowledge_dir, 'amonia_clima200.md'))
+importancia_amonia_context = load_knowledge_file(os.path.join(knowledge_dir, 'importancia_amonia.md'))
+sensor_dol53_context = load_knowledge_file(os.path.join(knowledge_dir, 'sensor_dol53.md'))
 
 report_content.append("#### Contexto do CLIMA200 (Fonte: `ambiencia_clima200.md`)\n")
 ambiencia_formatted = ambiencia_clima200_context.replace('\n', '\n> ')
@@ -206,7 +210,7 @@ report_content.append("### 5. Conclusão\n")
 report_content.append("A análise comparativa demonstra que o sistema CLIMA200 oferece um controle de ambiência superior, o que se traduz em melhorias significativas nos indicadores de desempenho dos lotes, como mortalidade, conversão alimentar e ganho de peso. Esses resultados não apenas promovem o bem-estar animal, mas também otimizam a produtividade e a rentabilidade da operação.\n\n")
 
 # Salvar o relatório
-output_dir = 'Clima200Jaime/src'
+output_dir = os.path.join(project_root, 'src')
 os.makedirs(output_dir, exist_ok=True)
 report_filepath = os.path.join(output_dir, 'relatorio_clima200_vs_testemunha.md')
 
